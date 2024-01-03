@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.shopping.ProductDetailsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardProductImages"
+            android:layout_width="0dp"
+            android:layout_height="350dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardElevation="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerProductImages"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/imageClose"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_close"
+                android:padding="5dp"
+                app:tint="@color/g_black"/>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/linearTitlePrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardProductImages">
+
+            <TextView
+                android:id="@+id/tvProductName"
+                style="@style/h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Lofcoding"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvProductPrice"
+                style="@style/h3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$6000"
+                android:textColor="@color/g_gray700" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/tvProductDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h3"
+            android:textColor="@color/g_gray700"
+            app:layout_constraintTop_toBottomOf="@id/linearTitlePrice"
+            app:layout_constraintStart_toStartOf="@id/linearTitlePrice"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque auctor varius ipsum non hendrerit. Nulla egestas hendrerit nunc eget accumsan. Sed in malesuada justo. Mauris at lorem quam. Donec in mauris eget magna sagittis sodales et dictum nisl. Nunc vitae volutpat ligula. Cras euismod accumsan purus, eu tristique velit pharetra et. Sed eget dolor molestie, semper arcu vitae, rutrum arcu. Praesent lacinia libero quam, et feugiat est venenatis vel. Cras mollis leo ac libero pretium ullamcorper. Duis luctus, nisl non ultrices pharetra, diam velit tempor tortor, eu fringilla orci sapien at nisl. Sed nec metus magna."/>
+
+        <View
+            android:id="@+id/topLine"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/g_line"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProductDescription"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"/>
+
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:id="@+id/buttonAddToCart"
+            style="@style/blueButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/mediumButtonHeight"
+            android:layout_marginEnd="10dp"
+            android:text="Add to cart"
+            android:layout_margin="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductDescription"
+            app:spinning_bar_color="@color/white" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

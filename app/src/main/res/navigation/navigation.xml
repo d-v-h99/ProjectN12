@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/accountOptionsFragment">
+
+    <fragment
+        android:id="@+id/accountOptionsFragment"
+        android:name="com.example.projectn12.fragment.AccountOptionsFragment"
+        android:label="fragment_account_options"
+        tools:layout="@layout/fragment_account_options" >
+        <action
+            android:id="@+id/action_accountOptionsFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_accountOptionsFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.projectn12.fragment.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.projectn12.fragment.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_shoppingActivity"
+            app:destination="@id/shoppingActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/shoppingActivity"
+        android:name="com.example.projectn12.activities.ShoppingActivity"
+        android:label="activity_shopping"
+        tools:layout="@layout/activity_shopping" />
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.example.projectn12.fragment.shopping.ProductDetailsFragment"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" />
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="com.example.projectn12.fragment.shopping.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment2_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.example.projectn12.fragment.address.AddressFragment"
+        android:label="fragment_address"
+        tools:layout="@layout/fragment_address" >
+        <action
+            android:id="@+id/action_addressFragment_to_add_addressFragment"
+            app:destination="@id/add_addressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/add_addressFragment"
+        android:name="com.example.projectn12.fragment.address.Add_addressFragment"
+        android:label="fragment_add_address"
+        tools:layout="@layout/fragment_add_address" />
+    <fragment
+        android:id="@+id/cartFragment2"
+        android:name="com.example.projectn12.fragment.shopping.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment2_to_addressFragment"
+            app:destination="@id/addressFragment" />
+    </fragment>
+</navigation>
