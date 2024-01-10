@@ -1,5 +1,7 @@
 package com.example.projectn12.models;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ public class Product implements Serializable {
     private Integer quantity;
     private String description;
     private List<String> images;
+    private List<Uri> uriImg;
 
     public Product() {
         name="";
@@ -19,6 +22,7 @@ public class Product implements Serializable {
         quantity=1;
         description="";
         images=new ArrayList<>();
+        uriImg=new ArrayList<>();
     }
 
     public Product(String name, String category, float price, Integer quantity, String description, List<String> images) {
@@ -29,7 +33,12 @@ public class Product implements Serializable {
         this.description = description;
         this.images = images;
     }
-
+    public void setDataProduct(String name, String description, float price , List<Uri> uriImg){
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.uriImg = uriImg;
+    }
     public String getName() {
         return name;
     }
@@ -76,5 +85,13 @@ public class Product implements Serializable {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public List<Uri> getUriImg() {
+        return uriImg;
+    }
+
+    public void setUriImg(List<Uri> uriImg) {
+        this.uriImg = uriImg;
     }
 }

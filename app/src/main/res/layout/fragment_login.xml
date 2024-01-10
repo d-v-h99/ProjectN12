@@ -63,6 +63,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvDontHaveAccount"
             style="@style/editText"
             android:hint="Email"
+            android:text="a@gmail.com"
             android:inputType="textEmailAddress"
             android:layout_marginTop="50dp"/>
 
@@ -75,6 +76,7 @@
             app:layout_constraintTop_toBottomOf="@id/edEmailLogin"
             style="@style/editText"
             android:hint="Password"
+            android:text="123456"
             android:inputType="textPassword"
             android:layout_marginTop="15dp"/>
 

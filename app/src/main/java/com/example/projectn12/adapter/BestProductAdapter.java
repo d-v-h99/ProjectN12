@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,13 @@ public class BestProductAdapter extends RecyclerView.Adapter<BestProductAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull BestProductViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Glide.with(context).load(list.get(position).getImages().get(0)).into(holder.newImg);
+        if (!list.get(position).getImages().isEmpty()) {
+            Glide.with(context).load(list.get(position).getImages().get(0)).into(holder.newImg);
+        }
+        else{
+            Glide.with(context).load("https://firebasestorage.googleapis.com/v0/b/projectn12.appspot.com/o/images%2F0ed6e2cf-a7d6-4ee6-8b43-209022fc164e?alt=media&token=a8d84580-08b1-48e3-80fa-2e9acb42bf06").into(holder.newImg);
+        }
+        //Glide.with(context).load(list.get(position).getImages().get(0)).into(holder.newImg);
         holder.newName.setText (list.get(position).getName());
         holder.newPrice.setText (String.valueOf(list.get(position).getPrice()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
