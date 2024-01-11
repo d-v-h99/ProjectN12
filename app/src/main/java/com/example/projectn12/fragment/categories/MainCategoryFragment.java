@@ -73,14 +73,33 @@ public class MainCategoryFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("TB", document.toString());
-                                Product a = document.toObject(Product.class);
-                                listProduct.add(a);
-                                specialProductsAdapter.notifyDataSetChanged();
-                                // best product
-                                listBestProduct.add(a);
-                                bestProductAdapter.notifyDataSetChanged();
-                                binding.mainCategoryProgressbar.setVisibility(view.GONE);
+                                Log.d("TB123", document.toString());
+                                Object picturesObject = document.get("pictures");
+
+                                if (picturesObject instanceof List) {
+                                    try {
+                                        List<String> picturesList = (List<String>) picturesObject;
+                                        float floatValue = Float.parseFloat(document.get("price").toString());
+                                        Product a = new Product(document.get("name").toString() , document.get("category").toString() ,floatValue , 1  ,document.get("description").toString() , picturesList);
+                                        listProduct.add(a);
+                                        specialProductsAdapter.notifyDataSetChanged();
+                                        listBestProduct.add(a);
+                                        bestProductAdapter.notifyDataSetChanged();
+                                        binding.mainCategoryProgressbar.setVisibility(view.GONE);
+                                    } catch (NumberFormatException e) {
+
+                                    }
+
+                                }else{
+                                    Product a = document.toObject(Product.class);
+                                    listProduct.add(a);
+                                    specialProductsAdapter.notifyDataSetChanged();
+                                    // best product
+                                    listBestProduct.add(a);
+                                    bestProductAdapter.notifyDataSetChanged();
+                                    binding.mainCategoryProgressbar.setVisibility(view.GONE);
+                                }
+
                             }
                         } else {
                             Log.d("Firestore", "Error getting documents: " + task.getException());

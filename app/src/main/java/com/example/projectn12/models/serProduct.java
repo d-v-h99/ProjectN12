@@ -111,7 +111,7 @@ public class serProduct {
         productMap.put("description" , this.newProduct.getDescription() );
         productMap.put("pictures" , this.newProduct.getImages() );
         productMap.put("category" , this.newProduct.getCategory() );
-        firestore.collection("Products")
+        firestore.collection("Product")
                 .add(productMap)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
