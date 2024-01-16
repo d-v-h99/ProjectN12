@@ -42,7 +42,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.BillHolder> {
         holder.newPrice.setText(chuyenDoiTien(String.valueOf((int) (Float.valueOf(list.get(position).getProductPrice()) * 1))));
         holder.quantity.setText(String.valueOf(list.get(position).getTotalQuantity()));
         float quantity = Float.parseFloat(list.get(position).getTotalQuantity().toString());
-        float price = Float.parseFloat(list.get(position).getProductPrice());
+        Integer price = list.get(position).getProductPrice();
         totalAmount += (int) (quantity * price);
         Intent intent = new Intent("MyTotalAmountBill");
         intent.putExtra("totalAmountBill", chuyenDoiTien(String.valueOf(totalAmount)));

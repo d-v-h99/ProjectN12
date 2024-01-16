@@ -15,12 +15,14 @@ import android.view.ViewGroup;
 
 import com.example.projectn12.R;
 import com.example.projectn12.databinding.FragmentAccountOptionsBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class AccountOptionsFragment extends Fragment {
 
     private FragmentAccountOptionsBinding binding;
     private NavController navController;
+    private FirebaseAuth auth=FirebaseAuth.getInstance();
     public AccountOptionsFragment() {
         // Required empty public constructor
     }
@@ -52,5 +54,8 @@ public class AccountOptionsFragment extends Fragment {
                 navController.navigate(R.id.action_accountOptionsFragment_to_loginFragment);
             }
         });
+        if(auth.getCurrentUser() != null){
+           // navController.navigate(R.id.action_accountOptionsFragment_to_shoppingActivity);
+        }
     }
 }

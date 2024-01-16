@@ -20,11 +20,15 @@ import com.example.projectn12.databinding.FragmentMainCategoryBinding;
 import com.example.projectn12.databinding.FragmentProductDetailsBinding;
 import com.example.projectn12.models.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -94,27 +98,43 @@ public class ProductDetailsFragment extends Fragment {
             final HashMap<String, Object> cartMap = new HashMap<>();
             cartMap.put("images", product.getImages().get(0));
             cartMap.put("productName", binding.tvProductName.getText().toString());
-            cartMap.put("productPrice", binding.tvProductPrice.getText().toString());
+            cartMap.put("productPrice", Float.valueOf(binding.tvProductPrice.getText().toString()).intValue());
             cartMap.put("currentTime", saveCurrentTime);
             cartMap.put("currentDate", saveCurrentDate);
             cartMap.put("totalQuantity", 1);
-            firestore.collection("AddToCart")
-                    .document(currentUser.getUid())
-                    .collection("User")
-                    .add(cartMap)
-                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            CollectionReference cartCollection = firestore.collection("AddToCart").document(currentUser.getUid()).collection("User");
+            cartCollection.whereEqualTo("productName", product.getName())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(getContext(), "Added to cart", Toast.LENGTH_LONG).show();
-                                // Hoàn tất thêm vào giỏ hàng
+                                if (task.getResult().isEmpty()) {
+                                    // Sản phẩm chưa tồn tại, thêm vào giỏ hàng
+                                    cartCollection.add(cartMap)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_LONG).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                } else {
+                                    Toast.makeText(getContext(), "Sản phẩm đã tồn tại trong giỏ hàng", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
-                                String errorMessage = task.getException().getMessage();
-                                Toast.makeText(getContext(), "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
 
+        }else{
+            Toast.makeText(getContext(), "Vui lòng đăng nhập để mua hàng", Toast.LENGTH_LONG).show();
         }
     }
 }

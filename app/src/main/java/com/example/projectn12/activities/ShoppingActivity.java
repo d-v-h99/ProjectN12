@@ -46,7 +46,7 @@ public class ShoppingActivity extends AppCompatActivity {
                 return true;
             }
         });
-        load_data();
+        //load_data();
         // Lấy giá trị từ Firebase và cập nhật số lượng sản phẩm vào BadgeDrawable
 
 
@@ -75,34 +75,6 @@ public class ShoppingActivity extends AppCompatActivity {
                     }
                 });
 
-    }
-    // k hoat dong
-    @Override
-    protected void onResume() {
-        super.onResume();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment currentFragment = fragmentManager.findFragmentById(R.id.shoppingHostFragment);
-        if (currentFragment instanceof CartFragment) {
-            CartFragment cartFragment = (CartFragment) currentFragment;
-            cartFragment.firestore.collection("AddToCart").document(cartFragment.auth.getCurrentUser().getUid())
-                    .collection("User")
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                int totalAmount = task.getResult().size();
-                                Log.d("count1", String.valueOf(totalAmount));
-                                BadgeDrawable badge = binding.bottomNavigation.getOrCreateBadge(R.id.cartFragment);
-                                badge.setNumber(totalAmount);
-                                badge.setBackgroundColor(getResources().getColor(R.color.g_blue));
-                            } else {
-                                String errorMessage = task.getException().getMessage();
-                                Toast.makeText(ShoppingActivity.this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-        }
     }
 
     private void replaceFragment(Fragment fragment) {

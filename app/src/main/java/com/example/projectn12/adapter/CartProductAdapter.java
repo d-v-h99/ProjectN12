@@ -44,9 +44,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
     Context context;
     private List<CartProduct> list;
     FragmentCartBinding binding;
-    int totalAmount = 0;
-    int totalQuantity = 1;
-
+    private float totalAmount = 0;
 
     public CartProductAdapter(Context context, List<CartProduct> list, FragmentCartBinding binding) {
         this.context = context;
@@ -66,192 +64,148 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
         holder.newName.setText(list.get(position).getProductName());
         holder.quantity.setText(String.valueOf(list.get(position).getTotalQuantity()));
         holder.newPrice.setText(chuyenDoiTien(String.valueOf((int) (Float.valueOf(list.get(position).getProductPrice()) * 1))));
-        totalAmount += Float.valueOf(list.get(position).getProductPrice());
+        calculateTotalAmount();
+        sendBroadcast();
         holder.addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer dem = Integer.valueOf(holder.quantity.getText().toString());
+                int dem = Integer.parseInt(holder.quantity.getText().toString());
                 dem++;
                 holder.quantity.setText(String.valueOf(dem));
-                //  holder.newPrice.setText(chuyenDoiTien(String.valueOf((int) (Float.valueOf(list.get(position).getProductPrice()) * totalQuantity))));
-                totalAmount += Float.valueOf(Float.valueOf(list.get(position).getProductPrice()) * dem);
-                Intent intent = new Intent("MyTotalAmount");
-                intent.putExtra("totalAmount", chuyenDoiTien(String.valueOf(totalAmount)));
-                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                CollectionReference collectionRef = db.collection("AddToCart")
-                        .document(currentUser.getUid())
-                        .collection("User");
-                collectionRef.whereEqualTo("productName", list.get(position).getProductName())
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        String documentId = document.getId();
-                                        // Sử dụng documentId để truy cập vào bản ghi cần thay đổi
-
-                                        // Thực hiện thay đổi giá trị và cập nhật bản ghi
-                                        collectionRef.document(documentId).get()
-                                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                        if (task.isSuccessful()) {
-                                                            DocumentSnapshot document = task.getResult();
-                                                            if (document.exists()) {
-                                                                CartProduct cartProduct = document.toObject(CartProduct.class);
-                                                                if (cartProduct != null) {
-                                                                    int newQuantity = cartProduct.getTotalQuantity() + 1;
-                                                                    collectionRef.document(documentId).update("totalQuantity", newQuantity)
-                                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                                @Override
-                                                                                public void onComplete(@NonNull Task<Void> task) {
-                                                                                    if (task.isSuccessful()) {
-                                                                                        Log.d("Sua doi tuong1", "thanh cong");
-                                                                                        holder.quantity.setText(String.valueOf(newQuantity));
-                                                                                    } else {
-                                                                                        Log.d("Sua doi tuong", "that bai");
-                                                                                    }
-                                                                                }
-                                                                            });
-                                                                }
-                                                            }
-                                                        } else {
-                                                            Exception error = task.getException();
-                                                            Log.d("Sua doi tuong", error.getMessage());
-                                                        }
-                                                    }
-                                                });
-                                    }
-                                } else {
-                                    String errorMessage = task.getException().getMessage();
-                                    Log.d("Sua doi tuong", errorMessage);
-                                }
-                            }
-                        });
+                list.get(position).setTotalQuantity(dem);
+                calculateTotalAmount();
+                sendBroadcast();
+                //
+                them_data(dem, position, holder);
 
             }
         });
+
         holder.removeItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer dem = Integer.valueOf(holder.quantity.getText().toString());
+                int dem = Integer.parseInt(holder.quantity.getText().toString());
                 if (dem > 1) {
                     dem--;
                     holder.quantity.setText(String.valueOf(dem));
-                    //  holder.newPrice.setText(chuyenDoiTien(String.valueOf((int) (Float.valueOf(list.get(position).getProductPrice()) * totalQuantity))));
-                    totalAmount += Float.valueOf(Float.valueOf(list.get(position).getProductPrice()) * dem);
-                    Intent intent = new Intent("MyTotalAmount");
-                    intent.putExtra("totalAmount", chuyenDoiTien(String.valueOf(totalAmount)));
-                    LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    CollectionReference collectionRef = db.collection("AddToCart")
-                            .document(currentUser.getUid())
-                            .collection("User");
-                    collectionRef.whereEqualTo("productName", list.get(position).getProductName())
-                            .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                            String documentId = document.getId();
-                                            // Sử dụng documentId để truy cập vào bản ghi cần thay đổi
-
-                                            // Thực hiện thay đổi giá trị và cập nhật bản ghi
-                                            collectionRef.document(documentId).get()
-                                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                            if (task.isSuccessful()) {
-                                                                DocumentSnapshot document = task.getResult();
-                                                                if (document.exists()) {
-                                                                    CartProduct cartProduct = document.toObject(CartProduct.class);
-                                                                    if (cartProduct != null) {
-                                                                        int newQuantity = cartProduct.getTotalQuantity() - 1;
-                                                                        collectionRef.document(documentId).update("totalQuantity", newQuantity)
-                                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                                    @Override
-                                                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                                                        if (task.isSuccessful()) {
-                                                                                            Log.d("Sua doi tuong1", "thanh cong");
-                                                                                            holder.quantity.setText(String.valueOf(newQuantity));
-                                                                                        } else {
-                                                                                            Log.d("Sua doi tuong", "that bai");
-                                                                                        }
-                                                                                    }
-                                                                                });
-                                                                    }
-                                                                }
-                                                            } else {
-                                                                Exception error = task.getException();
-                                                                Log.d("Sua doi tuong", error.getMessage());
-                                                            }
-                                                        }
-                                                    });
-                                        }
-                                    } else {
-                                        String errorMessage = task.getException().getMessage();
-                                        Log.d("Sua doi tuong", errorMessage);
-                                    }
-                                }
-                            });
-
+                    list.get(position).setTotalQuantity(dem);
+                    calculateTotalAmount();
+                    sendBroadcast();
+                    //
+                    them_data(dem, position, holder);
                 }
             }
         });
+//        binding.buttonCheckout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//                AddressFragment fragment = new AddressFragment();
+//                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+//                FragmentTransaction ft = fragmentManager.beginTransaction();
+//                ft.replace(R.id.shoppingHostFragment, fragment);
+//                ft.addToBackStack(null).commit();
+//            }
+//        });
+
+
+    }
+
+    private void them_data(int dem, int position, @NonNull CartHolder holder) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference collectionRef = db.collection("AddToCart")
+                .document(currentUser.getUid())
+                .collection("User");
+        collectionRef.whereEqualTo("productName", list.get(position).getProductName())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String documentId = document.getId();
+                                // Sử dụng documentId để truy cập vào bản ghi cần thay đổi
+
+                                // Thực hiện thay đổi giá trị và cập nhật bản ghi
+                                collectionRef.document(documentId).get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document.exists()) {
+                                                        CartProduct cartProduct = document.toObject(CartProduct.class);
+                                                        if (cartProduct != null) {
+                                                            int newQuantity = dem;
+                                                            collectionRef.document(documentId).update("totalQuantity", newQuantity)
+                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                            if (task.isSuccessful()) {
+                                                                                Log.d("Sua doi tuong1", "thanh cong");
+                                                                                holder.quantity.setText(String.valueOf(newQuantity));
+                                                                            } else {
+                                                                                Log.d("Sua doi tuong", "that bai");
+                                                                            }
+                                                                        }
+                                                                    });
+                                                        }
+                                                    }
+                                                } else {
+                                                    Exception error = task.getException();
+                                                    Log.d("Sua doi tuong", error.getMessage());
+                                                }
+                                            }
+                                        });
+                            }
+                        } else {
+                            String errorMessage = task.getException().getMessage();
+                            Log.d("Sua doi tuong", errorMessage);
+                        }
+                    }
+                });
+    }
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+    private void calculateTotalAmount() {
+        totalAmount = 0;
+        for (CartProduct product : list) {
+            totalAmount += product.getProductPrice() * product.getTotalQuantity();
+        }
+    }
+
+    private void sendBroadcast() {
         Intent intent = new Intent("MyTotalAmount");
         intent.putExtra("totalAmount", chuyenDoiTien(String.valueOf(totalAmount)));
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-        binding.buttonCheckout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                AddressFragment fragment = new AddressFragment();
-                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.shoppingHostFragment, fragment);
-                ft.addToBackStack(null).commit();
-            }
-        });
-
-
     }
 
+    public class CartHolder extends RecyclerView.ViewHolder {
+        ImageView newImg;
+        TextView newName, newPrice, quantity;
+        ImageView addItem, removeItem;
 
-
-@Override
-public int getItemCount(){
-        return list.size();
+        public CartHolder(@NonNull View itemView) {
+            super(itemView);
+            newImg = itemView.findViewById(R.id.imageCartProduct);
+            newName = itemView.findViewById(R.id.tvProductCartName);
+            newPrice = itemView.findViewById(R.id.tvProductCartPrice);
+            addItem = itemView.findViewById(R.id.imagePlus);
+            removeItem = itemView.findViewById(R.id.imageMinus);
+            quantity = itemView.findViewById(R.id.tvCartProductQuantity);
         }
 
-public class CartHolder extends RecyclerView.ViewHolder {
-    ImageView newImg;
-    TextView newName, newPrice, quantity;
-    ImageView addItem, removeItem;
-
-    public CartHolder(@NonNull View itemView) {
-        super(itemView);
-        newImg = itemView.findViewById(R.id.imageCartProduct);
-        newName = itemView.findViewById(R.id.tvProductCartName);
-        newPrice = itemView.findViewById(R.id.tvProductCartPrice);
-        addItem = itemView.findViewById(R.id.imagePlus);
-        removeItem = itemView.findViewById(R.id.imageMinus);
-        quantity = itemView.findViewById(R.id.tvCartProductQuantity);
     }
-
-}
 
     String chuyenDoiTien(String tien) {
         float amount = Float.parseFloat(tien);
         DecimalFormat decimalFormat = new DecimalFormat("#,### VND");
-        String formattedAmount = decimalFormat.format(amount);
-        return formattedAmount;
+        return decimalFormat.format(amount);
     }
 
 }

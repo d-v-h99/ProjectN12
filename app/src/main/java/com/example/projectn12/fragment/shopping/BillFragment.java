@@ -62,6 +62,12 @@ public class BillFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.imageCloseBilling.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().onBackPressed();
+            }
+        });
         Bundle bundle = getArguments();
         FirebaseUser currentUser = auth.getCurrentUser();
         if (bundle != null) {
@@ -99,58 +105,28 @@ public class BillFragment extends Fragment {
         binding.buttonPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Reference đến collection "HistorytoCart"
-                CollectionReference historyRef = firestore.collection("HistorytoCart");
-
-                // Reference đến collection "AddToCart"
-                CollectionReference collectionRef = firestore.collection("AddToCart")
-                        .document(currentUser.getUid())
-                        .collection("User");
-
-                // Lấy dữ liệu từ collection "AddToCart" và sao chép sang "HistorytoCart"
-                collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Lấy dữ liệu từ document
-                                Map<String, Object> data = document.getData();
-                                data.put("IDnguoidung",currentUser.getUid());
-                                // Thêm dữ liệu vào collection "HistorytoCart"
-                                historyRef.add(data)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                // Xóa bản ghi trong collection "AddToCart"
-                                                collectionRef.document(document.getId())
-                                                        .delete()
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
-                                                                Toast.makeText(getContext(), "Sao chép và xóa thành công", Toast.LENGTH_SHORT).show();
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Toast.makeText(getContext(), "Lỗi khi xóa bản ghi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                            }
-                                                        });
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(getContext(), "Lỗi khi sao chép dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                            }
-                        } else {
-                            String errorMessage = task.getException().getMessage();
-                            Toast.makeText(getContext(), "Lỗi: " + errorMessage, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Bạn đã hoàn thành đơn hàng", Toast.LENGTH_SHORT).show();
+                firestore.collection("AddToCart")
+                        .document(auth.getCurrentUser().getUid())
+                        .collection("User")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    document.getReference().delete();
+                                }
+                                // Xử lý khi xóa thành công
+                                Toast.makeText(getContext(), "Xóa AddToCart thành công", Toast.LENGTH_SHORT).show();
+                                } else {
+                                // Xử lý khi xóa thất bại
+                                String errorMessage = task.getException().getMessage();
+                                Toast.makeText(getContext(), "Lỗi: " + errorMessage, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
             }
         });
     }

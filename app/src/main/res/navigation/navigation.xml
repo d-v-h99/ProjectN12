@@ -16,6 +16,10 @@
         <action
             android:id="@+id/action_accountOptionsFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+
+        <action
+            android:id="@+id/action_accountOptionsFragment_to_shoppingActivity"
+            app:destination="@id/shoppingActivity" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -77,4 +81,14 @@
             android:id="@+id/action_cartFragment2_to_addressFragment"
             app:destination="@id/addressFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.projectn12.fragment.shopping.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_accountOptionsFragment"
+            app:destination="@id/accountOptionsFragment" />
+    </fragment>
+
 </navigation>

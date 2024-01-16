@@ -6,16 +6,23 @@ public class CartProduct {
     String currentTime;
     String currentDate;
     String productName;
-    String  productPrice;
+    Integer  productPrice;
     Integer totalQuantity;
     String images;
 
     public CartProduct() {
     }
 
-    public CartProduct(String currentTime, String currentDate, String productName, String productPrice, Integer totalQuantity, String images) {
+    public CartProduct(String currentTime, String currentDate, String productName, Integer productPrice, Integer totalQuantity, String images) {
         this.currentTime = currentTime;
         this.currentDate = currentDate;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.totalQuantity = totalQuantity;
+        this.images = images;
+    }
+
+    public CartProduct(String productName, Integer productPrice, Integer totalQuantity, String images) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.totalQuantity = totalQuantity;
@@ -46,11 +53,11 @@ public class CartProduct {
         this.productName = productName;
     }
 
-    public String getProductPrice() {
+    public Integer getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(String productPrice) {
+    public void setProductPrice(Integer productPrice) {
         this.productPrice = productPrice;
     }
 

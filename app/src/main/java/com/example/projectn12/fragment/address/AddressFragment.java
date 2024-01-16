@@ -53,6 +53,12 @@ public class AddressFragment extends Fragment implements AddressAdapter.Selected
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.imageCloseCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().onBackPressed();
+            }
+        });
         binding.addressRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         addressModelList = new ArrayList<>();
         addressAdapter = new AddressAdapter(getContext(), addressModelList,this);

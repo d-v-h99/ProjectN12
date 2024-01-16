@@ -65,6 +65,12 @@ public class Add_addressFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.imageAddressClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().onBackPressed();
+            }
+        });
         // Khởi tạo danh sách và adapter cho Spinner
         cityList = new ArrayList<>();
         districtList1 = new ArrayList<>();
