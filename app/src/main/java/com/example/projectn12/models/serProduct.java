@@ -6,12 +6,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.projectn12.fragment.categories.MainCategoryFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -109,9 +112,9 @@ public class serProduct {
         productMap.put("name" , this.newProduct.getName() );
         productMap.put("price" , this.newProduct.getPrice() );
         productMap.put("description" , this.newProduct.getDescription() );
-        productMap.put("pictures" , this.newProduct.getImages() );
+        productMap.put("images" , this.newProduct.getImages() );
         productMap.put("category" , this.newProduct.getCategory() );
-        firestore.collection("Product")
+        firestore.collection("Products")
                 .add(productMap)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
@@ -125,4 +128,28 @@ public class serProduct {
                 });
 
     }
+    public void getSeachProduct(String nameProduct , MainCategoryFragment search){
+        ArrayList<Product> listProductSearch = new ArrayList<>();
+        firestore.collection("Products")
+                .whereGreaterThanOrEqualTo("name", nameProduct)
+                .whereLessThan("name", nameProduct + '\uf8ff')
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Product a = document.toObject(Product.class);
+                                listProductSearch.add(a);
+                                Log.d("ProductSearch", listProductSearch.toString());
+                            }
+                            search.searchProduct(listProductSearch);
+                        } else {
+                            Log.d("that bai product" , "that bai product" );
+                        }
+                    }
+                });
+
+    }
+
 }

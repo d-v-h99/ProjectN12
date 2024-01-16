@@ -73,24 +73,6 @@ public class MainCategoryFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("TB123", document.toString());
-                                Object picturesObject = document.get("pictures");
-
-                                if (picturesObject instanceof List) {
-                                    try {
-                                        List<String> picturesList = (List<String>) picturesObject;
-                                        float floatValue = Float.parseFloat(document.get("price").toString());
-                                        Product a = new Product(document.get("name").toString() , document.get("category").toString() ,floatValue , 1  ,document.get("description").toString() , picturesList);
-                                        listProduct.add(a);
-                                        specialProductsAdapter.notifyDataSetChanged();
-                                        listBestProduct.add(a);
-                                        bestProductAdapter.notifyDataSetChanged();
-                                        binding.mainCategoryProgressbar.setVisibility(view.GONE);
-                                    } catch (NumberFormatException e) {
-
-                                    }
-
-                                }else{
                                     Product a = document.toObject(Product.class);
                                     listProduct.add(a);
                                     specialProductsAdapter.notifyDataSetChanged();
@@ -98,7 +80,6 @@ public class MainCategoryFragment extends Fragment {
                                     listBestProduct.add(a);
                                     bestProductAdapter.notifyDataSetChanged();
                                     binding.mainCategoryProgressbar.setVisibility(view.GONE);
-                                }
 
                             }
                         } else {
@@ -107,5 +88,11 @@ public class MainCategoryFragment extends Fragment {
                     }
                 });
 
+    }
+    public void searchProduct(ArrayList<Product> listProductSearch){
+        binding.rvBestDealsProducts.setLayoutManager(new GridLayoutManager(getContext(), 2,GridLayoutManager.VERTICAL, false));
+//        listBestProduct = new ArrayList<>();
+        bestProductAdapter = new BestProductAdapter(getContext(), listProductSearch, getActivity().getSupportFragmentManager());
+        binding.rvBestDealsProducts.setAdapter(bestProductAdapter);
     }
 }
