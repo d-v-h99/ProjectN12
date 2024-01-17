@@ -14,19 +14,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.projectn12.MainActivity;
+import com.example.projectn12.activities.MainActivity;
 import com.example.projectn12.R;
-import com.example.projectn12.activities.ShoppingActivity;
-import com.example.projectn12.databinding.FragmentProductDetailsBinding;
 import com.example.projectn12.databinding.FragmentProfileBinding;
-import com.example.projectn12.fragment.AccountOptionsFragment;
 import com.example.projectn12.fragment.product.AddProduct;
 import com.example.projectn12.repository.AuthenticationRepository;
 

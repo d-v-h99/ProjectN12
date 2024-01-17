@@ -26,7 +26,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="Kleine."/>
+            android:text="Trippy."/>
 
         <TextView
             android:id="@+id/tvLetsLogin"
@@ -93,41 +93,41 @@
             android:textColor="@color/black"
             />
 
-        <ImageView
-            android:id="@+id/facebookLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
-            app:layout_constraintTop_toBottomOf="@id/buttonLoginLogin"
-            android:src="@drawable/facebook_login"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/facebookLogin"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="13dp"-->
+<!--            app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/buttonLoginLogin"-->
+<!--            android:src="@drawable/facebook_login"/>-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Facebook"
-            app:layout_constraintStart_toStartOf="@id/facebookLogin"
-            app:layout_constraintTop_toTopOf="@id/facebookLogin"
-            app:layout_constraintBottom_toBottomOf="@id/facebookLogin"
-            app:layout_constraintEnd_toEndOf="@id/facebookLogin"/>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Facebook"-->
+<!--            app:layout_constraintStart_toStartOf="@id/facebookLogin"-->
+<!--            app:layout_constraintTop_toTopOf="@id/facebookLogin"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/facebookLogin"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/facebookLogin"/>-->
 
-        <ImageView
-            android:id="@+id/googleLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
-            app:layout_constraintTop_toBottomOf="@id/buttonLoginLogin"
-            android:src="@drawable/google_login"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/googleLogin"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="13dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/buttonLoginLogin"-->
+<!--            android:src="@drawable/google_login"/>-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Google"
-            app:layout_constraintStart_toStartOf="@id/googleLogin"
-            app:layout_constraintTop_toTopOf="@id/googleLogin"
-            app:layout_constraintBottom_toBottomOf="@id/googleLogin"
-            app:layout_constraintEnd_toEndOf="@id/googleLogin"/>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Google"-->
+<!--            app:layout_constraintStart_toStartOf="@id/googleLogin"-->
+<!--            app:layout_constraintTop_toTopOf="@id/googleLogin"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/googleLogin"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/googleLogin"/>-->
 
 
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton

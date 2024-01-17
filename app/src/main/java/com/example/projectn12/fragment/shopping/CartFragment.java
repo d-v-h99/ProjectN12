@@ -141,6 +141,7 @@ public class CartFragment extends Fragment {
                 if(productList.size() == 0){
                     binding.textview4.setText("Giỏ hàng rỗng");
                     binding.tvTotalPrice.setText("0 VND");
+                    binding.buttonCheckout.setEnabled(false);
                 }
                 firestore.collection("AddToCart")
                         .document(currentUser.getUid())

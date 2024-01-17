@@ -28,7 +28,7 @@
                 android:layout_marginTop="120dp"
                 android:drawableStart="@drawable/ic_kleine_shape"
                 android:drawablePadding="6dp"
-                android:text="Kleine."
+                android:text="Trippy."
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

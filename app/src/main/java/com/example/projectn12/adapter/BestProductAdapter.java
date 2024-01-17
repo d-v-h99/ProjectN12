@@ -26,6 +26,7 @@ import com.example.projectn12.R;
 import com.example.projectn12.fragment.shopping.ProductDetailsFragment;
 import com.example.projectn12.models.Product;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class BestProductAdapter extends RecyclerView.Adapter<BestProductAdapter.BestProductViewHolder> {
@@ -55,7 +56,8 @@ public class BestProductAdapter extends RecyclerView.Adapter<BestProductAdapter.
         }
         //Glide.with(context).load(list.get(position).getImages().get(0)).into(holder.newImg);
         holder.newName.setText (list.get(position).getName());
-        holder.newPrice.setText (String.valueOf(list.get(position).getPrice()));
+        //holder.newPrice.setText (String.valueOf(list.get(position).getPrice()));
+        holder.newPrice.setText (chuyenDoiTien(String.valueOf(Math.round(list.get(position).getPrice()))));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,5 +87,10 @@ public class BestProductAdapter extends RecyclerView.Adapter<BestProductAdapter.
             newName=itemView.findViewById(R.id.tv_name);
             newPrice=itemView.findViewById(R.id.tv_price);
         }
+    }
+    String chuyenDoiTien(String tien) {
+        float amount = Float.parseFloat(tien);
+        DecimalFormat decimalFormat = new DecimalFormat("#,### VND");
+        return decimalFormat.format(amount);
     }
 }

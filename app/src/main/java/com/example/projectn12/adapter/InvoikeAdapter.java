@@ -16,6 +16,7 @@ import com.example.projectn12.models.CartProduct;
 import com.example.projectn12.models.Item;
 
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class InvoikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -118,7 +119,13 @@ public class InvoikeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             bill=itemView.findViewById(R.id.textBill);
         }
         void setDate(String t){
-            bill.setText(t);
+            bill.setText(chuyenDoiTien(t));
+        }
+        String chuyenDoiTien(String tien) {
+            float amount = Float.parseFloat(tien);
+            DecimalFormat decimalFormat = new DecimalFormat("#,### VND");
+            return decimalFormat.format(amount);
         }
     }
+
 }

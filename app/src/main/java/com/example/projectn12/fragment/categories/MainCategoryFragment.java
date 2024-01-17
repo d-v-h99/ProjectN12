@@ -54,10 +54,10 @@ public class MainCategoryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.rvSpecialProducts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        listProduct = new ArrayList<>();
-        specialProductsAdapter = new SpecialProductsAdapter(getContext(), listProduct);
-        binding.rvSpecialProducts.setAdapter(specialProductsAdapter);
+//        binding.rvSpecialProducts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+//        listProduct = new ArrayList<>();
+//        specialProductsAdapter = new SpecialProductsAdapter(getContext(), listProduct);
+//        binding.rvSpecialProducts.setAdapter(specialProductsAdapter);
         //best product
         binding.rvBestDealsProducts.setLayoutManager(new GridLayoutManager(getContext(), 2,GridLayoutManager.VERTICAL, false));
         listBestProduct = new ArrayList<>();
@@ -74,8 +74,8 @@ public class MainCategoryFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                     Product a = document.toObject(Product.class);
-                                    listProduct.add(a);
-                                    specialProductsAdapter.notifyDataSetChanged();
+//                                    listProduct.add(a);
+//                                    specialProductsAdapter.notifyDataSetChanged();
                                     // best product
                                     listBestProduct.add(a);
                                     bestProductAdapter.notifyDataSetChanged();

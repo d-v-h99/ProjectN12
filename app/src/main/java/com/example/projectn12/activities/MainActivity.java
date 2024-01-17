@@ -1,4 +1,4 @@
-package com.example.projectn12;
+package com.example.projectn12.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import com.example.projectn12.R;
 import com.example.projectn12.fragment.AccountOptionsFragment;
 import com.example.projectn12.fragment.LoginFragment;
 
