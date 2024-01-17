@@ -22,6 +22,12 @@
         android:text="Xem lịch sử đơn hàng" />
 
     <Button
+        android:id="@+id/call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gọi cho hỗ trợ khách hàng" />
+
+    <Button
         android:id="@+id/btnDangXuat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,10 +1,15 @@
 package com.example.projectn12.fragment.shopping;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,6 +19,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.projectn12.MainActivity;
 import com.example.projectn12.R;
@@ -28,6 +34,7 @@ import com.example.projectn12.repository.AuthenticationRepository;
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private AuthenticationRepository repository;
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
     private NavController navController;
     public ProfileFragment() {
         // Required empty public constructor
@@ -45,6 +52,17 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Uri uri=Uri.parse("tel:01692149072");
+                Intent intent=new Intent(Intent.ACTION_DIAL);
+                intent.setData(uri);
+                startActivity(intent);
+
+            }
+        });
         binding.btnchuyen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
