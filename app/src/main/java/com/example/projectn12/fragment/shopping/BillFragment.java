@@ -26,6 +26,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.provider.Settings;
@@ -40,6 +42,7 @@ import com.example.projectn12.adapter.BillAdapter;
 import com.example.projectn12.adapter.CartProductAdapter;
 import com.example.projectn12.databinding.FragmentAddressBinding;
 import com.example.projectn12.databinding.FragmentBillBinding;
+import com.example.projectn12.fragment.address.Add_addressFragment;
 import com.example.projectn12.models.CartProduct;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -127,6 +130,7 @@ public class BillFragment extends Fragment {
         binding.buttonPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkNotificationPermission();
                 firestore.collection("AddToCart")
                         .document(auth.getCurrentUser().getUid())
                         .collection("User")
@@ -147,7 +151,12 @@ public class BillFragment extends Fragment {
                         }
                     }
                 });
-                checkNotificationPermission();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                HomeFragment fragment = new HomeFragment();
+                FragmentTransaction ft= fragmentManager.beginTransaction();
+                ft.replace(R.id.shoppingHostFragment, fragment);
+                ft.addToBackStack(null).commit();;
+
             }
         });
     }
@@ -220,6 +229,7 @@ public class BillFragment extends Fragment {
         }
         m.notify(idTB, builder.build()); // tb co id =1 => suy ra chi hien dc tb 1 lan
 //        m.notify(new Random().nextInt(), builder.build());
+
 
     }
 

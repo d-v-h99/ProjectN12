@@ -25,7 +25,7 @@
                     android:id="@+id/imageCloseBilling"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_close"
+
                     android:scaleType="centerInside"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

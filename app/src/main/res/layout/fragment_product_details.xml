@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.shopping.ProductDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/mainCategoryProgressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="500dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardProductImages"
@@ -71,29 +81,29 @@
         </LinearLayout>
 
         <TextView
-            android:layout_marginTop="20dp"
             android:id="@+id/tvProductDescription"
+            style="@style/h3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/h3"
+            android:layout_marginTop="20dp"
+            android:text="La."
             android:textColor="@color/g_gray700"
-            app:layout_constraintTop_toBottomOf="@id/linearTitlePrice"
-            app:layout_constraintStart_toStartOf="@id/linearTitlePrice"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque auctor varius ipsum non hendrerit. Nulla egestas hendrerit nunc eget accumsan. Sed in malesuada justo. Mauris at lorem quam. Donec in mauris eget magna sagittis sodales et dictum nisl. Nunc vitae volutpat ligula. Cras euismod accumsan purus, eu tristique velit pharetra et. Sed eget dolor molestie, semper arcu vitae, rutrum arcu. Praesent lacinia libero quam, et feugiat est venenatis vel. Cras mollis leo ac libero pretium ullamcorper. Duis luctus, nisl non ultrices pharetra, diam velit tempor tortor, eu fringilla orci sapien at nisl. Sed nec metus magna."/>
+            app:layout_constraintStart_toStartOf="@id/linearTitlePrice"
+            app:layout_constraintTop_toBottomOf="@id/linearTitlePrice" />
 
         <View
             android:id="@+id/topLine"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/g_line"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvProductDescription"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"/>
+            android:background="@color/g_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProductDescription" />
 
 
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
@@ -101,13 +111,47 @@
             style="@style/blueButtonStyle"
             android:layout_width="0dp"
             android:layout_height="@dimen/mediumButtonHeight"
+            android:layout_margin="20dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
             android:text="Add to cart"
-            android:layout_margin="50dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvProductDescription"
             app:spinning_bar_color="@color/white" />
+
+
+        <EditText
+            android:id="@+id/editTextText2"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Nhap đánh giá ở đây..."
+            android:layout_marginStart="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/buttonAddToCart"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="Them"
+            app:layout_constraintEnd_toEndOf="@+id/buttonAddToCart"
+            app:layout_constraintStart_toEndOf="@+id/editTextText2"
+            app:layout_constraintTop_toBottomOf="@+id/buttonAddToCart" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RvComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

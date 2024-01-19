@@ -58,6 +58,7 @@ public class BestProductAdapter extends RecyclerView.Adapter<BestProductAdapter.
         holder.newName.setText (list.get(position).getName());
         //holder.newPrice.setText (String.valueOf(list.get(position).getPrice()));
         holder.newPrice.setText (chuyenDoiTien(String.valueOf(Math.round(list.get(position).getPrice()))));
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +66,7 @@ public class BestProductAdapter extends RecyclerView.Adapter<BestProductAdapter.
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("detailed", product);
                 ProductDetailsFragment fragment = new ProductDetailsFragment();
+                Log.d("tab", product.getImages().toString());
                 fragment.setArguments(bundle);
                 FragmentTransaction ft= fragmentManager.beginTransaction();
                 ft.replace(R.id.shoppingHostFragment, fragment);

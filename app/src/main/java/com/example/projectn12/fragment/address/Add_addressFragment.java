@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +22,9 @@ import com.example.projectn12.api.JsonPlaceHolderAPI;
 import com.example.projectn12.api.RetrofitClient;
 import com.example.projectn12.databinding.FragmentAddAddressBinding;
 import com.example.projectn12.databinding.FragmentAddressBinding;
+import com.example.projectn12.fragment.shopping.HomeFragment;
 import com.example.projectn12.models.Districts;
+import com.example.projectn12.models.Product;
 import com.example.projectn12.models.Provinces;
 import com.example.projectn12.models.Wards;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -84,7 +88,30 @@ public class Add_addressFragment extends Fragment {
         binding.districtSpinner.setAdapter(districtAdapter);
         binding.wardSpinner.setAdapter(wardAdapter);
         jsonPlaceHolderApi = RetrofitClient.getJsonPlaceHolderApi();
-
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            binding.buttonSave.setText("Update");
+            String obj = arguments.getString("detailedAdrees");
+            String[] addressParts = obj.split(",\\s*");
+            if (addressParts.length >= 1) {
+                binding.edAddressTitle.setText(addressParts[0].trim());
+            }
+            if (addressParts.length >= 2) {
+                binding.edPhone.setText(addressParts[1].trim());
+            }
+            if (addressParts.length >= 3) {
+                binding.edAddressTitle.setText(addressParts[2].trim());
+            }
+            if (addressParts.length >= 4) {
+                binding.edFullName.setText(addressParts[3].trim());
+            }
+            if (addressParts.length >= 5) {
+                binding.edStreet.setText(addressParts[4].trim());
+            }
+            if (addressParts.length >= 6) {
+                binding.edSoNha.setText(addressParts[5].trim());
+            }
+        }
         binding.citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -94,6 +121,7 @@ public class Add_addressFragment extends Fragment {
 //                Toast.makeText(getContext(), selectedValue, Toast.LENGTH_SHORT).show();
                 hashMapHuyen.clear();
                 getDistricts(selectedValue);
+
             }
 
             @Override
@@ -138,7 +166,7 @@ public class Add_addressFragment extends Fragment {
                 String name= binding.edState.getText().toString();
                 String phone= binding.edPhone.getText().toString();
                 String sonha=binding.edSoNha.getText().toString();
-                String temp = name + " , "+ phone +" , "+ result+" | "+sonha;
+                String temp = name + " , "+ phone +" , "+ result+" , "+sonha;
                // Toast.makeText(getContext(), "DiaChi " + temp, Toast.LENGTH_SHORT).show();
                 Map<String, String> map=new HashMap<>();
                 map.put("userAddress",temp);
@@ -151,6 +179,11 @@ public class Add_addressFragment extends Fragment {
                                 }
                             }
                         });
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                AddressFragment fragment = new AddressFragment();
+                FragmentTransaction ft= fragmentManager.beginTransaction();
+                ft.replace(R.id.shoppingHostFragment, fragment);
+                ft.addToBackStack(null).commit();;
 
             }
         });

@@ -102,12 +102,14 @@ public class CartFragment extends Fragment {
                                     binding.textview4.setText("Giỏ hàng rỗng");
                                     binding.tvTotalPrice.setText("0 VND");
                                     binding.mainCategoryProgressbar.setVisibility(View.GONE);
+                                    binding.buttonCheckout.setEnabled(false);
                                 }else{
                                     for(QueryDocumentSnapshot document: task.getResult()){
                                         CartProduct myCartModel = document.toObject(CartProduct.class);
                                         Log.d("TB1", myCartModel.toString());
                                         productList.add(myCartModel);
                                         cartProductAdapter.notifyDataSetChanged();
+                                        binding.buttonCheckout.setEnabled(true);
                                         //
                                         binding.mainCategoryProgressbar.setVisibility(view.GONE);
 
