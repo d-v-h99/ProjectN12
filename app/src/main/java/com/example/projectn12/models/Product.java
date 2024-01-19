@@ -14,6 +14,7 @@ public class Product implements Serializable {
     private String description;
     private List<String> images;
     private List<Uri> uriImg;
+    private String idProduct;
 
     public Product() {
         name="";
@@ -93,5 +94,13 @@ public class Product implements Serializable {
 
     public void setUriImg(List<Uri> uriImg) {
         this.uriImg = uriImg;
+    }
+
+    public String getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(String idProduct) {
+        this.idProduct = idProduct;
     }
 }

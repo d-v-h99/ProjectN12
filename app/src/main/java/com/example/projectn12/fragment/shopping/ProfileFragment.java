@@ -24,6 +24,7 @@ import com.example.projectn12.activities.MainActivity;
 import com.example.projectn12.R;
 import com.example.projectn12.databinding.FragmentProfileBinding;
 import com.example.projectn12.fragment.product.AddProduct;
+import com.example.projectn12.fragment.product.ArrListProductFragment;
 import com.example.projectn12.repository.AuthenticationRepository;
 
 
@@ -59,10 +60,21 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+        binding.btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrListProductFragment fragment = new ArrListProductFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.shoppingHostFragment, fragment);
+                ft.addToBackStack(null).commit();
+            }
+        });
         binding.btnchuyen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AddProduct fragment = new AddProduct();
+                AddProduct.check = false ;
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.shoppingHostFragment, fragment);

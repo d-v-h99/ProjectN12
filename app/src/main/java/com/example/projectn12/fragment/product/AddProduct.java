@@ -32,12 +32,15 @@ import java.util.List;
 public class AddProduct extends Fragment {
 
     private FragmentAddProductBinding binding;
+    TextView textView2 ;
     Button chooseImg;
     EditText nameInPut, priceInPut , description;
     Button upload;
     ImageView ImgView;
     List<Uri> chooseImgList = new ArrayList<>();
     serProduct dbProduct = new serProduct();
+    public static boolean check = false ;
+    public static Product updateProduct = new Product();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,10 +58,21 @@ public class AddProduct extends Fragment {
         chooseImg = binding.chooseImg;
         upload = binding.upload;
         ImgView = binding.ImgView;
+        textView2 = binding.textView2;
+
+        if(check){
+            textView2.setText("Sửa sản phẩm ");
+            upload.setText("Sửa");
+            nameInPut.setText(updateProduct.getName());
+            priceInPut.setText(String.valueOf(updateProduct.getPrice()));
+            description.setText(updateProduct.getDescription());
+        }else{
+            textView2.setText("Thêm sản phẩm ");
+            upload.setText("Thêm");
+        }
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Product newProduct = new Product();
                 String nameProduct = nameInPut.getText().toString();
                 String priceProduct = priceInPut.getText().toString();
                 String descriptionProduct = description.getText().toString();
@@ -67,9 +81,14 @@ public class AddProduct extends Fragment {
                 else {
                     try {
                         float priceProductFloat = Float.parseFloat(priceInPut.getText().toString());
-                        newProduct.setDataProduct(nameProduct, descriptionProduct , priceProductFloat , chooseImgList);
-                        dbProduct.setNewProduct(newProduct);
-                        dbProduct.saveProductToDatabase(getContext());
+                        updateProduct.setDataProduct(nameProduct, descriptionProduct , priceProductFloat , chooseImgList);
+                        dbProduct.setNewProduct(updateProduct);
+                        if(check){
+                            dbProduct.updateProductToDatabase(getContext());
+                        }else{
+                            dbProduct.saveProductToDatabase(getContext());
+                        }
+
                     } catch (NumberFormatException e) {
                         Toast.makeText(getContext(), "Vui lòng nhập giá tiền là số", Toast.LENGTH_SHORT).show();
                     }
