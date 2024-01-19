@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.example.projectn12.R;
 import com.example.projectn12.databinding.FragmentAddProductBinding;
@@ -23,6 +25,10 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View rootView = binding.getRoot();
+        WebView webView = rootView.findViewById(R.id.webview);
+        webView.setWebViewClient(new WebViewClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("https://www.designhunter.co.uk/");
         return rootView;
     }
 
