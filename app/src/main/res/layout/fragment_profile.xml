@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,29 +9,320 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-
-    <Button
-        android:id="@+id/btnchuyen"
+    <TextView
+        android:id="@+id/tv_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tải lên" />
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:text="Settings"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/btnHoaDon"
+    <ImageView
+        android:id="@+id/img_user"
+        android:layout_width="43dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/circle_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Xem lịch sử đơn hàng" />
-
-    <Button
-        android:id="@+id/call"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="3dp"
+        android:text="Name"
+        app:layout_constraintStart_toEndOf="@id/img_user"
+        app:layout_constraintTop_toTopOf="@+id/img_user" />
+    <TextView
+        android:id="@+id/tv_edit_personal_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gọi cho hỗ trợ khách hàng" />
+        android:hint="Edit personal details"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_user_name" />
 
-    <Button
-        android:id="@+id/btnDangXuat"
-        android:layout_width="match_parent"
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="&#x203A;"-->
+    <!--        android:textColor="#000000"-->
+    <!--        android:textSize="35dp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        tools:layout_editor_absoluteX="374dp"-->
+    <!--        tools:layout_editor_absoluteY="63dp" />-->
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="162dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/ic_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/tv_edit_personal_details"
+        app:layout_constraintStart_toEndOf="@+id/tv_edit_personal_details"
+        app:layout_constraintTop_toTopOf="@id/tv_user_name"
+        app:layout_constraintVertical_bias="0.791" />
+
+    <TextView
+        android:id="@+id/tv_orders"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đăng xuất" />
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        android:text="Orders"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_user" />
 
-</LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="380dp"
+        android:layout_height="144dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="5dp"
+        android:background="#C0C0C0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_orders"
+        tools:ignore="">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/settings_items_background"
+            android:src="@drawable/upload_product"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_upload_product"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center_vertical"-->
+        <!--            android:layout_marginStart="25dp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:text="Upload product"-->
+        <!--            android:textStyle="bold"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/imageView"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <Button
+            android:id="@+id/btnchuyen"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:text="Upload product"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:backgroundTint="#C0C0C0"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="155dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintStart_toEndOf="@+id/btnchuyen"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/settings_items_background"
+            android:src="@drawable/ic_view_order"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:tint="@color/white" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_view_order_history"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center_vertical"-->
+        <!--            android:layout_marginStart="25dp"-->
+        <!--            android:layout_marginTop="25dp"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:text="View order history"-->
+        <!--            android:textStyle="bold"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/imageView2"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tv_upload_product" />-->
+
+        <Button
+            android:id="@+id/btnHoaDon"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#C0C0C0"
+            android:text="View order history"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/btnchuyen" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="137dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintStart_toEndOf="@+id/btnHoaDon"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/settings_items_background"
+            android:backgroundTint="#FF9800"
+            android:src="@drawable/ic_phone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:tint="@color/white" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_call_custom_support"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center_vertical"-->
+        <!--            android:layout_marginStart="25dp"-->
+        <!--            android:layout_marginTop="25dp"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:text="Call customer support"-->
+        <!--            android:textStyle="bold"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/imageView3"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tv_view_order_history" />-->
+
+        <Button
+            android:id="@+id/call"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#C0C0C0"
+            android:text="Call customer support"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/btnHoaDon" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="23dp"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintStart_toEndOf="@+id/call"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_regional"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:text="Regional"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="5dp"
+        android:background="#C0C0C0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_regional">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/settings_items_background"
+            android:backgroundTint="#ff5823"
+            android:src="@drawable/ic_logout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/logout"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center_vertical"-->
+        <!--            android:layout_marginStart="25dp"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:text="Logout"-->
+        <!--            android:textStyle="bold"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/imageView7"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <Button
+            android:id="@+id/btnDangXuat"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#C0C0C0"
+            android:text="Log out"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="203dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintStart_toEndOf="@+id/btnDangXuat"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="195dp"
+        android:layout_marginEnd="163dp"
+        android:layout_marginBottom="42dp"
+        android:text="Version 0.0.1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
